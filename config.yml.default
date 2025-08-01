@@ -1,4 +1,4 @@
-token: "XXXXXXXXXXXXXXXXXXXXXXXX"         # Lichess OAuth2 Token.
+token:          # Lichess OAuth2 Token.
 
 engines:
   standard:                               # Engine used for standard chess and when no suitable special engine is configured.
@@ -9,12 +9,12 @@ engines:
     move_overhead_multiplier: 1.0         # Increase if your bot flags games too often. Default move overhead is 1 second per 1 minute initital time.
     uci_options:                          # Arbitrary UCI options passed to the engine.
       Threads: 4                          # Max CPU threads the engine can use.
-      Hash: 256                           # Max memory (in megabytes) the engine can allocate.
-      Move Overhead: 100                  # Increase if your bot flags games too often.
+      Hash: 1024                           # Max memory (in megabytes) the engine can allocate.
+      Move Overhead: 222                  # Increase if your bot flags games too often.
     limits:                               # Limits that end the move calculation early.
-#     time: 5.0                           # Max time per move in seconds.
-#     depth: 26                           # Max depth per move.
-#     nodes: 4000000                      # Max nodes per move.
+      time: 5.0                           # Max time per move in seconds.
+      depth: 26                           # Max depth per move.
+      nodes: 4000000                      # Max nodes per move.
 # variants:                               # Engine used for variants when no suitable special engine is configured.
 #   dir: "./engines"                      # Directory containing the engine.
 #   name: "fairy-stockfish"               # Binary name of the engine to use.
@@ -60,7 +60,7 @@ gaviota:
   max_pieces: 5                           # Count of max pieces in the local gaviota endgame tablebases.
 
 opening_books:
-  enabled: false                          # Activate opening books.
+  enabled: true                          # Activate opening books.
   priority: 400                           # Priority with which this move source is used. Higher priority is used first.
   books:
 #   bullet:
@@ -76,7 +76,9 @@ opening_books:
       selection: weighted_random          # Move selection is one of "weighted_random", "uniform_random" or "best_move".
 #     max_depth: 16                       # Half move max depth. (Comment this line for max depth)
       names:                              # List of names of books to use if there is no specific book for the time control, white, black or chess960.
-        - DefaultBook
+        - OneBook
+        - TwoBook
+        - ThreeBook
 #   Use the same pattern for 'bullet', 'blitz', 'rapid', 'classical',
 #   'antichess', 'atomic', 'chess960', 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
 #   Append '_white', '_black' or '_human' to use the engine only as the specific color or against humans.
@@ -117,9 +119,9 @@ online_moves:
 #   max_depth: 16                         # Half move max depth. (Comment this line for max depth)
 #   max_moves: 1                          # Max number of moves played from chessdb. (Comment this line for max moves)
   online_egtb:
-    enabled: false                        # Activate online endgame tablebases from Lichess.
+    enabled: true                        # Activate online endgame tablebases from Lichess.
     min_time: 5                           # Time the bot must have at least to use the online move. +10 seconds in games without increment.
-    timeout: 3                            # Time the server has to respond.
+    timeout: 1                            # Time the server has to respond.
 
 offer_draw:
   enabled: true                           # Activate whether the bot should offer draw.
@@ -207,4 +209,6 @@ blacklist:                                # List of users who are not challenged
 # - Username2
 
 books:                                    # Names of the opening books (to be used above in the opening_books section) and paths to the opening books.
-  DefaultBook: "/path/to/DefaultBook.bin"
+  OneBook: "engines/Book1.bin"
+  TwoBook: "engines/Book2.bin"
+  ThreeBook: "engines/Book3.bin"

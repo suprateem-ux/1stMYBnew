@@ -103,7 +103,7 @@ class Chatter:
                 self.print_eval_rooms.add(chat_message.room)
                 await self.api.send_chat_message(self.game_info.id_,
                                                  chat_message.room,
-                                                 'Type !quiet to stop eval printing.')
+                                                 'Ok! Type !quiet to stop eval printing.')
                 await self._send_last_message(chat_message.room)
             case 'quiet':
                 self.print_eval_rooms.discard(chat_message.room)
@@ -119,7 +119,7 @@ class Chatter:
                 await self.api.send_chat_message(self.game_info.id_, chat_message.room, self.ram_message)
             case 'help' | 'commands':
                 if chat_message.room == 'player':
-                    message = 'Supported commands: !cpu, !draw, !eval, !motor, !name, !printeval, !ram'
+                    message = 'Commands: !cpu, !draw, !eval, !motor, !name, !printeval, !ram'
                 else:
                     message = 'Supported commands: !cpu, !draw, !eval, !motor, !name, !printeval, !pv, !ram'
 

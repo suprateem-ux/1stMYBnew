@@ -13,7 +13,7 @@ engines:
       Move Overhead: 220                  # Increase if your bot flags games too often.
     limits:                               # Limits that end the move calculation early.
       time: 20.0                           # Max time per move in seconds.
-      depth: 38                           # Max depth per move.
+      depth: 50                           # Max depth per move.
       nodes: 4000000                      # Max nodes per move.
 # variants:                               # Engine used for variants when no suitable special engine is configured.
 #   dir: "./engines"                      # Directory containing the engine.

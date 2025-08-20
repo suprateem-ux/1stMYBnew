@@ -21,13 +21,9 @@ jobs:
       - name: Query latest Stockfish dev release asset URL
         id: get_url
         run: |
-          url=$(curl -s https://api.github.com/repos/official-stockfish/Stockfish/releases \
-            | jq -r '[.[] | select(.prerelease == true and (.tag_name | test("^stockfish-dev")))] | .[0].assets[] | select(.name | test("stockfish-ubuntu-x86-64.*tar$")).browser_download_url')
-          if [ -z "$url" ]; then
-            echo "Не удалось найти URL для скачивания. Выход из скрипта."
-            exit 1
-          fi
-          echo "ASSET_URL=$url" >> $GITHUB_ENV   # ✅ без кавычек!
+          url=$(curl -s api.github.com/repos/official-stockfish/Stockfish/releases \
+            | jq -r '[.[] | select(.prerelease==true and (.tag_name|type == "string") and (.tag_name|test("^stockfish-dev")))] | .[0].assets[] | select(.name|test("stockfish-ubuntu-x86-64-bmi2.tar$")).browser_download_url')
+          echo "ASSET_URL=$url" >> $GITHUB_ENV
 
       - name: Download and extract Stockfish
         run: |
@@ -37,7 +33,7 @@ jobs:
       - name: Move and rename Stockfish binary to 'engines/stockfish'
         run: |
           mkdir -p engines
-          mv stockfish/stockfish-ubuntu-x86-64-* engines/stockfish
+          mv stockfish/stockfish-ubuntu-x86-64-bmi2 engines/stockfish
           chmod +x engines/stockfish
 
       - name: Clean up

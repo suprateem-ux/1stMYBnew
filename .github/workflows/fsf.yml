@@ -1,4 +1,4 @@
-set to name: Download and Commit Latest Stockfish Dev
+name: Download and Commit Latest Stockfish Dev
 
 on:
   workflow_dispatch:

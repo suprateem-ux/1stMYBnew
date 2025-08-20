@@ -27,7 +27,7 @@ jobs:
             echo "Не удалось найти URL для скачивания. Выход из скрипта."
             exit 1
           fi
-          echo "ASSET_URL=\"$url\"" >> $GITHUB_ENV
+          echo "ASSET_URL=$url" >> $GITHUB_ENV   # ✅ без кавычек!
 
       - name: Download and extract Stockfish
         run: |

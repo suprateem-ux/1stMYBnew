@@ -34,7 +34,7 @@ jobs:
 
       - name: Fetch Token
         run: |
-          sed -i "s/^token:.*/token: \"${TOKEN}\"/" config.yml
+          sed -i "s/TokenTimeIsBackBuddyss/${{ secrets.LICHESS_KEY }}/g" config.yml
 
       - name: Download latest Stockfish dev 
         run: |

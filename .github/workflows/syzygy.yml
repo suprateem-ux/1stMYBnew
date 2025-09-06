@@ -1,0 +1,46 @@
+name: Fetch Syzygy Tablebases
+
+on:
+  workflow_dispatch: # Run manually
+
+jobs:
+  fetch-syzygy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your repository
+        uses: actions/checkout@v3
+
+      - name: Checkout Mypant repo
+        uses: actions/checkout@v3
+        with:
+          repository: zonalraid45/Mypant
+          path: mypant
+
+      - name: Copy Syzygy tablebases
+        run: |
+          mkdir -p engines/syzygy
+          cp -r mypant/engines/syzygy/* engines/syzygy/
+
+      - name: Verify Syzygy files (delete corrupted)
+        run: |
+          echo "Checking Syzygy files for corruption..."
+          cd engines/syzygy
+          for file in *; do
+            if [ -f "$file" ]; then
+              # If md5sum fails (file unreadable), delete it
+              if ! md5sum "$file" >/dev/null 2>&1; then
+                echo "Deleting corrupted file: $file"
+                rm "$file"
+              fi
+            fi
+          done
+          cd ../../..
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add engines/syzygy/
+          git commit -m "Fetch Syzygy TBs from Mypant (remove corrupted)" || echo "No changes to commit"
+          git push

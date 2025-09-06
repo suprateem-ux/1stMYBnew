@@ -23,7 +23,7 @@ jobs:
       - name: Install Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
       - name: Install GitHub CLI
         run: sudo apt-get update && sudo apt-get install -y gh
@@ -47,7 +47,7 @@ jobs:
       - name: Run Bot
         run: |
           echo "Starting bot..."
-          python3 -u user_interface.py "tournament YnQTooxC" &
+          python3 -u user_interface.py "tournament H2cgYCoM" &
           PID=$!
           
           # Auto-exit after 350 minutes (so restart runs without overlap)

@@ -9,12 +9,12 @@ engines:
     move_overhead_multiplier: 1.0         # Increase if your bot flags games too often. Default move overhead is 1 second per 1 minute initital time.
     uci_options:                          # Arbitrary UCI options passed to the engine.
       Threads: 4                          # Max CPU threads the engine can use.
-      Hash: 1024                           # Max memory (in megabytes) the engine can allocate.
+      Hash: 4096                           # Max memory (in megabytes) the engine can allocate.
       Move Overhead: 220                  # Increase if your bot flags games too often.
     limits:                               # Limits that end the move calculation early.
       time: 20.0                           # Max time per move in seconds.
-      depth: 26                           # Max depth per move.
-      nodes: 4000000                      # Max nodes per move.
+      depth: 66                           # Max depth per move.
+      nodes: 400000000                      # Max nodes per move.
 # variants:                               # Engine used for variants when no suitable special engine is configured.
 #   dir: "./engines"                      # Directory containing the engine.
 #   name: "fairy-stockfish"               # Binary name of the engine to use.
@@ -61,7 +61,7 @@ gaviota:
 
 opening_books:
   enabled: true                          # Activate opening books.
-  priority: 400                           # Priority with which this move source is used. Higher priority is used first.
+  priority: 500                           # Priority with which this move source is used. Higher priority is used first.
   books:
 #   bullet:
 #     selection: weighted_random          # Move selection is one of "weighted_random", "uniform_random" or "best_move".
@@ -73,12 +73,16 @@ opening_books:
 #     names:                              # List of names of books to use as black.
 #       - BlackBook
     standard:
-      selection: weighted_random          # Move selection is one of "weighted_random", "uniform_random" or "best_move".
+      selection: best_move          # Move selection is one of "weighted_random", "uniform_random" or "best_move".
 #     max_depth: 16                       # Half move max depth. (Comment this line for max depth)
       names:                              # List of names of books to use if there is no specific book for the time control, white, black or chess960.
         - OneBook
         - TwoBook
         - ThreeBook
+    chess960:
+      selection: best_move
+      names:
+        - chess960
 #   Use the same pattern for 'bullet', 'blitz', 'rapid', 'classical',
 #   'antichess', 'atomic', 'chess960', 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
 #   Append '_white', '_black' or '_human' to use the engine only as the specific color or against humans.
@@ -128,7 +132,7 @@ offer_draw:
   score: 10                               # If the absolute value of the score is less than or equal to this value, the bot offers/accepts draw (in cp)
   consecutive_moves: 10                   # How many moves in a row the absolute value of the score has to be below the draw value
   min_game_length: 35                     # Earliest move in which draw is offered.
-  against_humans: true                    # Activate whether these settings should apply against humans.
+  against_humans: false                   # Activate whether these settings should apply against humans.
 
 resign:
   enabled: false                          # Activate whether the bot should resign games.
@@ -206,3 +210,4 @@ books:                                    # Names of the opening books (to be us
   OneBook: "engines/Book1.bin"
   TwoBook: "engines/Book2.bin"
   ThreeBook: "engines/Book3.bin"
+  chess960: "engines/chess960.bin"

@@ -1,0 +1,15 @@
+name: Get Lichess Bot Email
+
+on:
+  workflow_dispatch:
+
+jobs:
+  get-email:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show Lichess bot email
+        env:
+          LICHESS_KEY: ${{ secrets.LICHESS_KEY }}
+        run: |
+          echo "Fetching Lichess bot email..."
+          curl -s -H "Authorization: Bearer $LICHESS_KEY" https://lichess.org/api/account/email

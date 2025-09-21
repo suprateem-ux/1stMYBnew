@@ -12,19 +12,19 @@ engines:
       Hash: 4096                           # Max memory (in megabytes) the engine can allocate.
       Move Overhead: 120                  # Increase if your bot flags games too often.
     limits:                               # Limits that end the move calculation early.
-      time: 20.0                           # Max time per move in seconds.
-      depth: 66                           # Max depth per move.
-      nodes: 400000000                      # Max nodes per move.\
-  chess960:
+     # time: 20.0                           # Max time per move in seconds.
+     # depth: 66                           # Max depth per move.
+    #  nodes: 400000000                      # Max nodes per move.\
+  variants:
     dir: "./engines"
-    name: "stockfish"
+    name: "fairy-stockfish_x86-64-bmi2"
     ponder: true 
     silence_stderr: false
-    move_overhead_multiplier: 16.5
+    move_overhead_multiplier: 10.5
     uci_options:
       Threads: 4 
       Hash: 4096
-      Move Overhead: 275
+      Move Overhead: 175
     limits:
 
 syzygy:
@@ -77,6 +77,10 @@ opening_books:
       selection: best_move
       names:
         - chess960
+    antichess:
+      selection: best_move
+      names:
+        - antichess
 #   Use the same pattern for 'bullet', 'blitz', 'rapid', 'classical',
 #   'antichess', 'atomic', 'chess960', 'crazyhouse', 'horde', 'kingofthehill', 'racingkings' and '3check' as well.
 #   Append '_white', '_black' or '_human' to use the engine only as the specific color or against humans.
@@ -205,3 +209,4 @@ books:                                    # Names of the opening books (to be us
   TwoBook: "engines/Book2.bin"
   ThreeBook: "engines/Book3.bin"
   chess960: "engines/chess960.bin"
+  antichess: "engines/anti_book.bin"

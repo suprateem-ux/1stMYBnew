@@ -42,7 +42,7 @@ jobs:
           curl -L -o stockfish.zip http://abrok.eu/stockfish/latest/linux/stockfish_x64_avx2.zip
           unzip -o stockfish.zip -d engines/
           mv engines/stockfish_* engines/stockfish
-          chmod +x engines/stockfish
+          chmod +x engines/stockfish engines/fairy-stockfish_x86-64-bmi2
 
       - name: Run Bot
         run: |

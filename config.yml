@@ -10,7 +10,7 @@ engines:
     uci_options:                          # Arbitrary UCI options passed to the engine.
       Threads: 4                          # Max CPU threads the engine can use.
       Hash: 4096                           # Max memory (in megabytes) the engine can allocate.
-      Move Overhead: 120                  # Increase if your bot flags games too often.
+      Move Overhead: 125                  # Increase if your bot flags games too often.
     limits:                               # Limits that end the move calculation early.
      # time: 20.0                           # Max time per move in seconds.
      # depth: 66                           # Max depth per move.
@@ -133,10 +133,10 @@ offer_draw:
   against_humans: false                   # Activate whether these settings should apply against humans.
 
 resign:
-  enabled: false                          # Activate whether the bot should resign games.
-  score: -1000                            # If the score is less than or equal to this value, the bot resigns (in cp).
-  consecutive_moves: 5                    # How many moves in a row the score has to be below the resign value.
-  against_humans: true                    # Activate whether these settings should apply against humans.
+  enabled: true                          # Activate whether the bot should resign games.
+  score: -1100                            # If the score is less than or equal to this value, the bot resigns (in cp).
+  consecutive_moves: 6                    # How many moves in a row the score has to be below the resign value.
+  against_humans: false                    # Activate whether these settings should apply against humans.
 
 challenge:                                # Incoming challenges.
   concurrency: 1                          # Number of games to play simultaneously.
@@ -149,14 +149,14 @@ challenge:                                # Incoming challenges.
   variants:                               # Chess variants to accept (https://lichess.org/variant).
     - standard
     - chess960
-#   - fromPosition
-#   - antichess
-#   - atomic
-#   - crazyhouse
-#   - horde
-#   - kingOfTheHill
-#   - racingKings
-#   - threeCheck
+    - fromPosition
+    - antichess
+    - atomic
+    - crazyhouse
+    - horde
+    - kingOfTheHill
+    - racingKings
+    - threeCheck
   time_controls:                          # Speeds or time controls in initial_minutes+increment_seconds format to accept.
     - bullet
     - blitz
@@ -183,6 +183,11 @@ matchmaking:
       tc: 3+0
     khanki:
       tc: 8+0
+    noob:
+      tc: 0.75+0
+      variant: antichess
+    hyperfas:
+      tc: 0.5+0 
 messages:
   # Optional substitution keywords (include curly braces):
   #   {opponent} to insert the opponent's name

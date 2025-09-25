@@ -10,10 +10,10 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repo
+      - name: Checkout your repo (full history)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # so we can rebase/pull cleanly
+          fetch-depth: 0   # important for rebase/pull
 
       - name: Clone Torom/BotLi
         run: |
@@ -41,9 +41,9 @@ jobs:
 
       - name: Pull remote changes (avoid rejected push)
         run: |
-          git pull --rebase origin main || true
+          git fetch origin main
+          git rebase origin/main || true
 
       - name: Push changes
         run: |
           git push origin main
-b

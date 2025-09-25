@@ -215,6 +215,7 @@ whitelist:                                # List of users whose challenges are a
 blacklist:                                # List of users who are not challenged and whose challenges are declined.
 # - Username1
 # - Username2
+online_blacklists:
 
 books:                                    # Names of the opening books (to be used above in the opening_books section) and paths to the opening books.
   OneBook: "engines/Book1.bin"

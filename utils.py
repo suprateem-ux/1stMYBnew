@@ -1,3 +1,6 @@
+import textwrap
+from datetime import datetime, timedelta
+
 from enums import Variant
 
 ALIASES = {
@@ -17,6 +20,26 @@ def find_variant(name: str) -> Variant | None:
     for variant, aliases in ALIASES.items():
         if any(name.lower() == alias.lower() for alias in aliases):
             return variant
+
+
+def get_future_timestamp(seconds: int) -> str:
+    return (datetime.now() + timedelta(seconds=seconds)).isoformat(sep=" ", timespec="seconds")
+
+
+def ml_print(prefix: str, suffix: str) -> None:
+    if len(prefix) + len(suffix) <= 128:
+        print(prefix + suffix)
+        return
+
+    width = 128 - len(prefix)
+    indentation = " " * len(prefix)
+    lines = textwrap.wrap(suffix, width=width, break_long_words=False, break_on_hyphens=False)
+    print(prefix + lines[0])
+
+    remaining_text = " ".join(lines[1:])
+    subsequent_lines = textwrap.wrap(remaining_text, width=width, break_long_words=False, break_on_hyphens=False)
+    for line in subsequent_lines:
+        print(indentation + line)
 
 
 def parse_time_control(time_control: str) -> tuple[int, int]:

@@ -54,7 +54,7 @@ gaviota:
   max_pieces: 5                           # Count of max pieces in the local gaviota endgame tablebases.
 
 opening_books:
-  enabled: true                          # Activate opening books.
+  enabled: false                         # Activate opening books.
   priority: 500                           # Priority with which this move source is used. Higher priority is used first.
   books:
 #   bullet:
@@ -171,8 +171,8 @@ challenge:                                # Incoming challenges.
 #   - classical
 #   - 25+0
   bot_modes:                              # Game modes to accept against BOTs.
-#   - casual                              # Unrated games.
-   # - rated                               # Rated games
+    - casual                              # Unrated games.
+    - rated                               # Rated games
   human_modes:                            # Game modes to accept against humans.
 #    - casual                              # Unrated games.
   #  - rated                               # Rated games

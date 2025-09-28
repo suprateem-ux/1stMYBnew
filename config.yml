@@ -54,7 +54,7 @@ gaviota:
   max_pieces: 5                           # Count of max pieces in the local gaviota endgame tablebases.
 
 opening_books:
-  enabled: false                         # Activate opening books.
+  enabled: true                      # Activate opening books.
   priority: 500                           # Priority with which this move source is used. Higher priority is used first.
   books:
 #   bullet:

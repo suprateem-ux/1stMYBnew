@@ -1,40 +1,38 @@
-name: Update Stockfish
+name: Download and Commit Stockfish
 
 on:
-  workflow_dispatch:  # run manually
-  schedule:
-    - cron: "0 12 * * *"  # optional: run daily at 12:00 UTC
+  workflow_dispatch:
 
 jobs:
-  update-stockfish:
+  download_and_commit_stockfish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0   # important for clean commits
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0   # fetch all history to allow rebasing
 
-      - name: Make engines folder
-        run: mkdir -p engines
-
-      - name: Download Stockfish tarball
+      - name: Download latest Stockfish
         run: |
-          curl -L \
-          https://github.com/official-stockfish/Stockfish/releases/download/stockfish-dev-20250928-3073d82c/stockfish-ubuntu-x86-64-avx2.tar \
-          -o stockfish.tar
-
-      - name: Extract Stockfish
-        run: |
+          curl -L "https://github.com/official-stockfish/Stockfish/releases/download/stockfish-dev-20250928-3073d82c/stockfish-ubuntu-x86-64-bmi2.tar" -o stockfish.tar
           tar -xf stockfish.tar
-          mv stockfish-ubuntu-x86-64-avx2 stockfish
-          mv stockfish engines/stockfish
-          rm -f stockfish.tar
 
-      - name: Commit and push Stockfish update
+      - name: Move Stockfish binary to engines folder
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p engines
+          mv stockfish/stockfish-ubuntu-x86-64-bmi2 engines/stockfish
+          chmod +x engines/stockfish
+
+      - name: Clean up
+        run: rm -rf stockfish stockfish.tar
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add engines/stockfish
-          git commit -m "Update Stockfish binary"
+          git commit -m "Update Stockfish binary" || echo "No changes to commit"
+          git pull --rebase origin main
           git push

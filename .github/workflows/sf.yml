@@ -1,0 +1,40 @@
+name: Update Stockfish
+
+on:
+  workflow_dispatch:  # run manually
+  schedule:
+    - cron: "0 12 * * *"  # optional: run daily at 12:00 UTC
+
+jobs:
+  update-stockfish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # important for clean commits
+
+      - name: Make engines folder
+        run: mkdir -p engines
+
+      - name: Download Stockfish tarball
+        run: |
+          curl -L \
+          https://github.com/official-stockfish/Stockfish/releases/download/stockfish-dev-20250928-3073d82c/stockfish-ubuntu-x86-64-avx2.tar \
+          -o stockfish.tar
+
+      - name: Extract Stockfish
+        run: |
+          tar -xf stockfish.tar
+          mv stockfish-ubuntu-x86-64-avx2 stockfish
+          mv stockfish engines/stockfish
+          rm -f stockfish.tar
+
+      - name: Commit and push Stockfish update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add engines/stockfish
+          git commit -m "Update Stockfish binary"
+          git push

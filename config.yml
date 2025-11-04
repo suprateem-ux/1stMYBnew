@@ -116,7 +116,7 @@ online_moves:
 #   max_depth: 16                         # Half move max depth. (Comment this line for max depth)
 #   max_moves: 1                          # Max number of moves played from Lichess cloud eval. (Comment this line for max moves)
   chessdb:
-    enabled: false                       # Activate online moves from https://chessdb.cn/queryc_en/
+    enabled: true                  # Activate online moves from https://chessdb.cn/queryc_en/
     priority: 400                         # Priority with which this move source is used. Higher priority is used first.
     only_without_book: false 
     allow_repetitions: false
